@@ -1,16 +1,6 @@
 import { MATERIALS } from "../data/materials";
 
-type SaddleMaterial = {
-  materialId: string;
-  amount: number;
-};
-
-type Saddle = {
-  id: string;
-  name: string;
-  defense: number;
-  materials: SaddleMaterial[];
-};
+import type { Saddle } from '../types';
 
 type Props = {
   saddles: Saddle[];

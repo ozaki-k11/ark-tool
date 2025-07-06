@@ -1,17 +1,7 @@
 import { useState } from "react";
 import { MATERIALS } from "../data/materials";
 
-type SaddleMaterial = {
-  materialId: string;
-  amount: number | "";
-};
-
-type Saddle = {
-  id: string;
-  name: string;
-  defense: number;
-  materials: SaddleMaterial[];
-};
+import type { Saddle, SaddleMaterial } from '../types';
 
 type Props = {
   onAdd: (saddle: Saddle) => void;

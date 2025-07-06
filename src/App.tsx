@@ -20,9 +20,10 @@ import SaddleForm from "./components/SaddleForm";
 import SaddleList from "./components/SaddleList";
 import { MaterialList } from "./components/MaterialList";
 import { useState } from "react";
+import type { Saddle } from './types';
 
 function App() {
-  const [saddles, setSaddles] = useState([]);
+  const [saddles, setSaddles] = useState<Saddle[]>([]);
 
   return (
     <Router>
