@@ -1,35 +1,85 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+// import './App.css'
+// import { MaterialList } from './components/MaterialList';
+
+// function App() {
+
+//   return (
+//     <>
+//       <div className="min-h-screen bg-gray-50 text-gray-800 p-4">
+//         <h1 className="text-2xl font-bold mb-6">ARKサドル素材ツール</h1>
+//         <MaterialList />
+//       </div>
+//     </>
+//   )
+// }
+
+// export default App
+
+import { BrowserRouter as Router, Routes, Route, NavLink } from "react-router-dom";
+import SaddleForm from "./components/SaddleForm";
+import SaddleList from "./components/SaddleList";
+import { MaterialList } from "./components/MaterialList";
+import { useState } from "react";
 
 function App() {
-  const [count, setCount] = useState(0)
+  const [saddles, setSaddles] = useState([]);
 
   return (
-    <>
-      <div>
-        <a href="https://vite.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
+    <Router>
+      <div className="min-h-screen bg-gray-100 text-gray-800">
+        {/* ナビゲーション */}
+        <nav className="bg-white shadow mb-4">
+          <ul className="flex border-b">
+            <li>
+              <NavLink
+                to="/"
+                end
+                className={({ isActive }) =>
+                  `block px-6 py-3 border-b-2 ${
+                    isActive
+                      ? "border-blue-600 text-blue-600 font-bold bg-blue-50"
+                      : "border-transparent text-gray-600 hover:text-blue-500 hover:border-blue-300"
+                  }`
+                }
+              >
+                🛠 サドル管理
+              </NavLink>
+            </li>
+            <li>
+              <NavLink
+                to="/materials"
+                className={({ isActive }) =>
+                  `block px-6 py-3 border-b-2 ${
+                    isActive
+                      ? "border-blue-600 text-blue-600 font-bold bg-blue-50"
+                      : "border-transparent text-gray-600 hover:text-blue-500 hover:border-blue-300"
+                  }`
+                }
+              >
+                📦 素材リスト
+              </NavLink>
+            </li>
+          </ul>
+        </nav>
+
+        {/* ページ内容 */}
+        <main className="p-4">
+          <Routes>
+            <Route
+              path="/"
+              element={
+                <>
+                  <SaddleForm onAdd={(saddle) => setSaddles([...saddles, saddle])} />
+                  <SaddleList saddles={saddles} />
+                </>
+              }
+            />
+            <Route path="/materials" element={<MaterialList />} />
+          </Routes>
+        </main>
       </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.tsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
-  )
+    </Router>
+  );
 }
 
-export default App
+export default App;
